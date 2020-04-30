@@ -35,10 +35,10 @@ def eyebigger(img, pos, radius, scale):
     radius2 = radius * radius
     
     # 插值处理
-    for rgb in xrange(channel):
-        for i in xrange(top, bottom):
+    for rgb in range(channel):
+        for i in range(top, bottom):
             offy = i - pos[1]
-            for j in xrange(left, right):
+            for j in range(left, right):
                 offx = j - pos[0]
                 
                 dist = offy * offy + offx * offx
@@ -46,26 +46,22 @@ def eyebigger(img, pos, radius, scale):
                     
                     scalefactor = 1.0 - dist * 1.0 / radius2
                     scalefactor = 1 - scale * 1.0 / 100.0 * scalefactor
-                    
-#                    print scalefactor
                                         
                     posy = offy * scalefactor + pos[1]
                     posy = np.round(posy)
                     posy = min(posy, height - 1)
-                    posy = max(posy, 1)
-#                    print posy                    
+                    posy = max(posy, 1)               
                     
                     posx = offx * scalefactor + pos[0]
                     posx = np.round(posx)
                     posx = min(posx, width - 1)
                     posx = max(posx, 1)
-#                    print posx
                     
                     dst[i, j, rgb] = img[posy.astype('int'), posx.astype('int'), rgb]
     return dst.astype('uint8')
     
 
-#mouse callback function
+# mouse callback function
 def draw_circle(event,x,y,flags,param):
     global img
     radius = cv2.getTrackbarPos('radius', 'image')
@@ -77,21 +73,19 @@ def draw_circle(event,x,y,flags,param):
         
         # 放大处理
         img = eyebigger(img, (x,y), radius, 20.0)
-        
-#        cv2.circle(img, (x,y), radius, (255,0,0), 1)
 
     if event == cv2.EVENT_RBUTTONDOWN:
         img = copy.deepcopy(src)
 
 # 图像数据
 #src = np.zeros((512,512,3),np.uint8)
-src = cv2.imread('142204107567719.jpg')
+src = cv2.imread('../../data/ddd1.jpg')
 img = copy.deepcopy(src)
 img1 = copy.deepcopy(src)
 
 # 窗口
 cv2.namedWindow('image')
-cv2.createTrackbar('radius', 'image', 20, 100, nothing)
+cv2.createTrackbar('radius', 'image', 25, 100, nothing)
 # 设置鼠标响应
 cv2.setMouseCallback('image',draw_circle)
 cv2.imshow('image',img1)
@@ -99,5 +93,6 @@ cv2.imshow('image',img1)
 # 显示
 while(1):
     if cv2.waitKey(20)&0xFF==27:
+        # cv2.imwrite('ddd2.jpg', img)
         break
 cv2.destroyAllWindows()

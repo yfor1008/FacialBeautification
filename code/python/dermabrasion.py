@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov 08 11:41:40 2016
@@ -42,10 +43,10 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser()
     parser.add_argument('--image', 
-                        default = '142204107567719.jpg', 
+                        default = '../../data/142204107567719.jpg', 
                         help = 'image to be processing')
     parser.add_argument('--level',
-                        default = 50,
+                        default = 20,
                         help = 'float data > 0 & < 100')
     args = parser.parse_args()
     
@@ -53,17 +54,10 @@ if __name__ == '__main__':
     dermabrasionlevel = float(args.level)
     
     # 读取图像
-#    image = io.imread(imagename)
-    image = cv2.imread(imagename)    
-    
-    # 显示图像
-#    plt.axis('off')
-#    plt.imshow(image)
-#    plt.show()
-    
-    
-    # 
+    image = cv2.imread(imagename)
+
     filtered = dermabrasion(image, dermabrasionlevel)
+    cv2.imwrite('ddd.jpg', filtered.astype('uint8'))
 
     cv2.imshow('image', image)
     cv2.imshow('filtered', filtered.astype('uint8'))

@@ -84,13 +84,12 @@ def draw_circle(event,x,y,flags,param):
 
 # 图像数据
 #src = np.zeros((512,512,3),np.uint8)
-src = cv2.imread('142204107567719.jpg')
+src = cv2.imread('../../data/142204107567719.jpg')
 img = copy.deepcopy(src)
 img1 = copy.deepcopy(src)
 
 # 坐标位置
 points = []
-
 
 # 鼠标左键按下标记
 lbflg = False
